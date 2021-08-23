@@ -1,31 +1,55 @@
 {
   "env": {
-    "es6": true,
-    "node": true,
-    "mocha": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018
+    "commonjs": true,
+    "es2021": true,
+    "node": true
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "airbnb-base",
+    "plugin:security/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:promise/recommended",
+    "plugin:json/recommended",
+    "plugin:node/recommended"
   ],
+  "plugins": [
+    "security"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
   "rules": {
-    "indent": [
-      "error",
-      2
+    "quotes": [
+      "warn",
+      "single"
     ],
+    "semi": "error",
     "linebreak-style": [
       "error",
       "unix"
     ],
-    "quotes": [
-      "error",
-      "single"
+    "no-multiple-empty-lines": [
+      2,
+      {
+        "max": 1
+      }
     ],
-    "semi": [
+    "arrow-parens": [
       "error",
-      "always"
+      "as-needed"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "no-param-reassign": "warn",
+    "camelcase": [
+      "error",
+      {
+        "properties": "always"
+      }
     ]
   }
 }

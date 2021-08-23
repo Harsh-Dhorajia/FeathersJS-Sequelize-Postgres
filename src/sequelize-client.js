@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const { POSTGRES } = require('./constants.js');
+const Sequelize = require("sequelize");
+const { POSTGRES } = require("./constants.js");
 
 const sequelizeClient = new Sequelize({
   host: POSTGRES.HOST,
@@ -10,8 +10,8 @@ const sequelizeClient = new Sequelize({
   port: POSTGRES.PORT,
   logging: false,
   define: {
-    freezeTableName: true
-  }
+    freezeTableName: true,
+  },
 });
 
 module.exports = sequelizeClient;

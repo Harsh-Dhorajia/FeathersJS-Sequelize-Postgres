@@ -1,5 +1,3 @@
-const Methods = {
-
-};
+const Methods = {};
 
 module.exports = Methods;
