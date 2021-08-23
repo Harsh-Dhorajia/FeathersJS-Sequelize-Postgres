@@ -30,4 +30,11 @@ const User = sequelizeClient.define(
   },
 );
 
+User.associate = models => {
+  User.hasMany(models.event, {
+    foreignKey: 'userId',
+    as: 'events',
+  });
+};
+
 module.exports = User;

@@ -10,6 +10,7 @@ module.exports = function (app) {
 
     // Set up data relationships
     const { models } = sequelizeClient;
+    console.log(models)
     Object.keys(models).forEach((name) => {
       if ('associate' in models[name]) {
         models[name].associate(models);

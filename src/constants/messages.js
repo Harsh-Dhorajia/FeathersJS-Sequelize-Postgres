@@ -10,4 +10,6 @@ module.exports = {
   RESET_PASSWORD_LINK_EXPIRE: 'Reset password link is invalid or expired',
   TOKEN_REQUIRED: 'Token is required',
   PASSWORD_CHANGED: 'Password updated successfully',
+  EVENT_CREATED: 'Event created successfully',
+
 };
