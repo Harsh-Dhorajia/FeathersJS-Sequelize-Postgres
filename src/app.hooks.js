@@ -2,7 +2,12 @@
 
 module.exports = {
   before: {
-    all: [],
+    all: [
+      context => {
+        if (context.params && context.params.authentication) {
+          context.params.authentication.strategy = 'custom';
+        }
+      }],
     find: [],
     get: [],
     create: [],
