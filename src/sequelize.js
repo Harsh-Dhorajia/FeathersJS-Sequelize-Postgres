@@ -1,17 +1,17 @@
-const sequelizeClient = require("./sequelize-client");
+const sequelizeClient = require('./sequelize-client');
 
 module.exports = function (app) {
   const oldSetup = app.setup;
 
-  app.set("sequelizeClient", sequelizeClient);
+  app.set('sequelizeClient', sequelizeClient);
 
   app.setup = function (...args) {
     const result = oldSetup.apply(this, args);
 
     // Set up data relationships
-    const models = sequelizeClient.models;
+    const { models } = sequelizeClient;
     Object.keys(models).forEach((name) => {
-      if ("associate" in models[name]) {
+      if ('associate' in models[name]) {
         models[name].associate(models);
       }
     });
@@ -19,7 +19,7 @@ module.exports = function (app) {
     // Sync to the database
     sequelizeClient
       .sync({ alter: true })
-      .then(() => console.log("DB connected"))
+      .then(() => console.log('DB connected'))
       .catch((err) => console.log(err));
 
     return result;

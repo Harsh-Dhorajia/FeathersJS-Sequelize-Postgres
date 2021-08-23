@@ -1,10 +1,15 @@
 /* eslint-disable no-shadow */
-const bcrypt = require("bcryptjs");
-const User = require("../../../models/user.model");
+const bcrypt = require('bcryptjs');
+const User = require('../../../models/user.model');
 const {
   validateLoginInput,
-} = require("../../../utils/validations/userValidators");
-const { generateToken } = require("../../../utils/generateToken");
+} = require('../../../utils/validations/userValidators');
+const { generateToken } = require('../../../utils/generateToken');
+const {
+  LOGIN_SUCCESS,
+  PASSWORD_NOT_MATCH,
+  USER_NOT_FOUND,
+} = require('../../../constants/messages');
 
 const login = async (req, res) => {
   try {
@@ -16,18 +21,16 @@ const login = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: USER_NOT_FOUND });
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ message: 'Email or password do not match' });
+      return res.status(400).send({ message: PASSWORD_NOT_MATCH });
     }
 
     const token = await generateToken(user);
     return res.send({
-      message: 'User is logged in successfully',
+      message: LOGIN_SUCCESS,
       data: {
         user,
         token,

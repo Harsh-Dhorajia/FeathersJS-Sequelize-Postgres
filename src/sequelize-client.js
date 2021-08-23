@@ -1,5 +1,5 @@
-const Sequelize = require("sequelize");
-const { POSTGRES } = require("./constants.js");
+const Sequelize = require('sequelize');
+const { POSTGRES } = require('./constants');
 
 const sequelizeClient = new Sequelize({
   host: POSTGRES.HOST,

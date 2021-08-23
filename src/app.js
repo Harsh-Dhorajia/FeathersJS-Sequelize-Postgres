@@ -19,22 +19,6 @@ const app = express(feathers());
 
 const authentication = require('./authentication');
 
-// const prometheusClient = require('prom-client');
-// const apiMetrics = require('prometheus-api-metrics');
-// const gcStats = require('prometheus-gc-stats');
-
-// const collectDefaultMetrics = prometheusClient.collectDefaultMetrics;
-
-// Probe every 5th second.
-// collectDefaultMetrics({ timeout: 5000 });
-// const Registry = prometheusClient.Registry;
-// const register = new Registry();
-
-// collectDefaultMetrics({ register });
-// prometheusClient.collectDefaultMetrics();
-// const startGcStats = gcStats(prometheusClient.register);
-// startGcStats();
-
 // Load app configuration
 app.configure(configuration());
 
@@ -47,13 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
-// app.use(apiMetrics());
-
-//prometheus metrics
-// app.get('/metrics', (req, res) => {
-//   res.set('Content-Type', register.contentType);
-//   res.end(register.metrics());
-// });
 
 // Set up Plugins and providers
 app.configure(express.rest());
@@ -69,12 +46,10 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
-// app.configure(utils);
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 
 app.hooks(appHooks);
-
 
 module.exports = app;

@@ -1,8 +1,15 @@
 const bcrypt = require('bcryptjs');
-const User = require("../../../models/user.model");
-const { validateRegisterInput } = require('../../../utils/validations/userValidators');
+const User = require('../../../models/user.model');
+const {
+  validateRegisterInput,
+} = require('../../../utils/validations/userValidators');
+const {
+  USER_ALREADY_EXISTS,
+  REGISTER_SUCCESS,
+} = require('../../../constants/messages');
+const { generateToken } = require('../../../utils/generateToken');
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
   try {
     const { body } = req;
     const { username, email } = body;
@@ -19,12 +26,17 @@ const register = async (req, res, next) => {
     const userAlreadyExist = await User.findOne({ where: { email } });
 
     if (userAlreadyExist) {
-      return res.send({ message: 'User Already Exist' });
+      return res.send({ message: USER_ALREADY_EXISTS });
     }
     password = await bcrypt.hash(password, 12);
     const userInstance = await User.create({ email, password, username });
-    return res.send(userInstance);
+    const token = await generateToken(userInstance);
+    return res.send({
+      message: REGISTER_SUCCESS,
+      data: { user: userInstance, token },
+    });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
     return res.send(error);
   }
