@@ -18,7 +18,7 @@ module.exports = function (app) {
 
     // Sync to the database
     sequelizeClient
-      .sync()
+      .sync({ alter: true })
       .then(() => console.log("DB connected"))
       .catch((err) => console.log(err));
 

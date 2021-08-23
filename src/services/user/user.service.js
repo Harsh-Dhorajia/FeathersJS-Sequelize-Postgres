@@ -5,12 +5,12 @@ const UserModel = require("../../models/user.model");
 const UserRoutes = require("./user.routes");
 
 module.exports = function (app) {
-  // const paginate = app.get('paginate');
+  const paginate = app.get('paginate');
 
   const options = {
     name: "users",
     Model: UserModel,
-    // paginate,
+    paginate,
   };
 
   // Initialize User Routes
