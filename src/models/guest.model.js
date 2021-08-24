@@ -6,13 +6,14 @@ const Sequelize = require('sequelize');
 const { DataTypes } = Sequelize;
 const sequelizeClient = require('../sequelize-client');
 
-const Event = sequelizeClient.define(
-  'event',
+const Guest = sequelizeClient.define(
+  'guest',
   {
-    eventName: DataTypes.STRING,
-    date: DataTypes.STRING,
-    description: DataTypes.STRING,
     userId: DataTypes.INTEGER,
+    eventId: DataTypes.INTEGER,
+    invitedBy: {
+      type: DataTypes.STRING,
+    },
   },
   {
     hooks: {
@@ -23,17 +24,16 @@ const Event = sequelizeClient.define(
   },
 );
 
-Event.associate = models => {
-  Event.belongsTo(models.user, {
-    as: 'users',
-    foreignKey: 'userId',
+Guest.associate = models => {
+  Guest.belongsTo(models.event, {
+    foreignKey: 'eventId',
     onDelete: 'CASCADE',
   });
-  Event.hasMany(models.guest, {
-    foreignKey: 'eventId',
-    as: 'guests',
+  Guest.belongsTo(models.user, {
+    foreignKey: 'userId',
+    as: 'users',
+    onDelete: 'CASCADE',
   });
 };
 
-module.exports = Event;
-
+module.exports = Guest;

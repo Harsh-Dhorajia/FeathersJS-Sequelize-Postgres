@@ -14,7 +14,7 @@ module.exports.validateEventInput = async (eventName, date, description) => {
         date,
         description,
       },
-      { abortEarly: false },
+      { abortEarly: false }
     );
     if (error) {
       return { isValid: false, error };
@@ -27,7 +27,7 @@ module.exports.validateEventInput = async (eventName, date, description) => {
   }
 };
 
-module.exports.validateInviteInput = async email => {
+module.exports.validateInviteInput = async (email) => {
   const resetPasswordSchema = Joi.object().keys({
     email: Joi.string().email().required(),
   });
@@ -36,7 +36,33 @@ module.exports.validateInviteInput = async email => {
       {
         email,
       },
-      { abortEarly: false },
+      { abortEarly: false }
+    );
+    if (error) {
+      return { isValid: false, error };
+    }
+    return { isValid: true };
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return { message: SERVER_ERROR };
+  }
+};
+
+module.exports.validateEventUpdate = async (eventName, date, description) => {
+  const eventSchema = Joi.object().keys({
+    eventName: Joi.string().min(3).optional(),
+    date: Joi.string().optional(),
+    description: Joi.string().optional(),
+  });
+  try {
+    const { error } = await eventSchema.validate(
+      {
+        eventName,
+        date,
+        description,
+      },
+      { abortEarly: false }
     );
     if (error) {
       return { isValid: false, error };
