@@ -13,11 +13,14 @@ module.exports = {
   EVENT_CREATED: 'Event created successfully',
   INVITED_USERS: 'Invited users list',
   EVENT_NOT_FOUND: 'Given event is not found',
-  USER_NOT_REGISTERED: 'Please enter email who is registered user on event management',
+  USER_NOT_REGISTERED:
+    'Please enter email who is registered user on event management',
   PERMISSION_NOT_FOUND: 'You are not allow to invite users',
   EMAIL_ALREADY_INVITED: 'This email is already invited',
   INVITES_OWN: 'Email is same as your email. Please try another email',
   INVITE_SUCCESS: 'Invitation has been sent successfully',
   EVENT_UPDATED: 'Event has been updated successfully',
-
+  EVENT_LIST: 'All Events List',
+  CREATED_EVENTS: 'List of created events',
+  EVENT_DETAILS: 'Event details found successfully',
 };
