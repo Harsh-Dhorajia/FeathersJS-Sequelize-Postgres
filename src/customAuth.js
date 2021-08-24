@@ -59,7 +59,7 @@ class Custom extends JWTStrategy {
     console.log('No user found!');
     return Promise.reject(
       new errors.NotAuthenticated('InvalidCredentials', {
-        errors: { message: 'kansklnxklasn' },
+        errors: { message: 'Invalid login credentials' },
       }),
       null,
     );
